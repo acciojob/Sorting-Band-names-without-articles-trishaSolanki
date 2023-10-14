@@ -1,18 +1,27 @@
-// Define the band names array
-let bandNames = ['The Beatles', 'Aerosmith', 'Led Zeppelin', 'Red Hot Chili Peppers', 'The Rolling Stones'];
+// This is a Cypress test
+it('TestingSorting', () => {
+  // Visit your webpage
+  cy.visit('http://localhost:3000'); // Replace with the actual URL of your webpage
 
-// Remove articles from band names
-bandNames = bandNames.map(name => name.replace(/^(a|an|the)\s+/i, ''));
+  // Verify that there is at least one <li> element
+  cy.get('li').should('have.length.at.least', 1);
 
-// Sort the modified array
-bandNames.sort();
+  // Get the text content of <li> elements
+  const tags_content = [];
+  cy.get('li').each(($el) => {
+    tags_content.push($el.text());
+  });
 
-// Get the ul element with id 'bands'
-const ul = document.querySelector('#bands');
+  // Check if they are without articles and in sorted order
+  const sorted_content = tags_content
+    .map(tag_content => {
+      // Remove articles from the beginning of each band name
+      return tag_content.replace(/^(A |An |The )/i, '').trim();
+    })
+    .sort();
 
-// Create and append <li> elements to the ul
-bandNames.forEach(name => {
-  const li = document.createElement('li');
-  li.textContent = name;
-  ul.appendChild(li);
+  // Check if the list is sorted
+  for (let index = 0; index < sorted_content.length; index++) {
+    expect(tags_content[index]).to.eq(sorted_content[index]);
+  }
 });
