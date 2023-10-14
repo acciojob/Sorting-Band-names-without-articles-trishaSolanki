@@ -1,19 +1,18 @@
-//your code here
-let bandsNames = ['The Beatles', 'Aerosmith', 'Led Zeppelin', 'Red Hot Chili Peppers', 'The Rolling Stones'];
+// Define the band names array
+let bandNames = ['The Beatles', 'Aerosmith', 'Led Zeppelin', 'Red Hot Chili Peppers', 'The Rolling Stones'];
 
 // Remove articles from band names
-bandsNames = bandsNames.map(name => name.replace(/^(a|an|the)\s+/i, ''));
+bandNames = bandNames.map(name => name.replace(/^(a|an|the)\s+/i, ''));
 
 // Sort the modified array
-bandsNames.sort();
+bandNames.sort();
 
-// Get the ul element with id 'band'
-const ul = document.getElementById('bands');
+// Get the ul element with id 'bands'
+const ul = document.querySelector('#bands');
 
 // Create and append <li> elements to the ul
-bandsNames.forEach(name => {
+bandNames.forEach(name => {
   const li = document.createElement('li');
   li.textContent = name;
   ul.appendChild(li);
 });
-
