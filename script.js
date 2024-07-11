@@ -1,25 +1,21 @@
-let arr = ['The Virupaksha Temple', 'A Victoria Memorial', 'An Tajmahal'];
-let withoutArticles = [];
+let touristSpots = ['The Virupaksha Temple', 'Victoria Memorial', 'Tajmahal'];
 
-// Create an array of objects with original and modified strings
-for (let i = 0; i < arr.length; i++) {
-    let str = arr[i];
-    let modifiedStr = str.replace(/\b(a|an|the)\b/gi, "").trim().replace(/ +/gi, " ");
-    withoutArticles.push({ original: str, modified: modifiedStr });
+// Function to remove articles from the beginning of a band name
+function removeArticle(bandName) {
+    return bandName.replace(/^(a |an |the )/i, '').trim();
 }
 
-// Sort the array based on the modified strings
-withoutArticles.sort((a, b) => a.modified.localeCompare(b.modified));
-
-// Log the original strings in the sorted order
-for (let i = 0; i < withoutArticles.length; i++) {
-    console.log(withoutArticles[i].original);
-}
+// Sort the array based on the band names without the articles
+touristSpots.sort((a, b) => {
+    let bandA = removeArticle(a);
+    let bandB = removeArticle(b);
+    return bandA.localeCompare(bandB);
+});
 
 // Insert the sorted band names into the ul element with id 'band'
 const ul = document.getElementById('band');
-withoutArticles.forEach(item => {
+touristSpots.forEach(band => {
     let li = document.createElement('li');
-    li.textContent = item.original;
+    li.textContent = band;
     ul.appendChild(li);
 });
